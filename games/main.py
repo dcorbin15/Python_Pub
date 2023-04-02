@@ -1,0 +1,101 @@
+import random
+import time
+
+print("Tic Tac Toe Board Reference")
+def print_example_board():
+    print(" 1 | 2 | 3 ")
+    print("-----------")
+    print(" 4 | 5 | 6 ")
+    print("-----------")
+    print(" 7 | 8 | 9 ")
+print_example_board()
+
+input("Can you beat the robot?:")
+
+class TicTacToe:
+    def __init__(self):
+        self.board = [' '] * 9
+        self.current_player = 'X'
+        self.bot_player = 'O'
+
+    def display_board(self):
+        print(f" {self.board[0]} | {self.board[1]} | {self.board[2]} ")
+        print("-----------")
+        print(f" {self.board[3]} | {self.board[4]} | {self.board[5]} ")
+        print("-----------")
+        print(f" {self.board[6]} | {self.board[7]} | {self.board[8]} ")
+
+    def make_move(self, position):
+        if self.board[position - 1] == ' ':
+            self.board[position - 1] = self.current_player
+            self.current_player, self.bot_player = self.bot_player, self.current_player
+            return True
+        else:
+            return False
+
+    def check_winner(self):
+        lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+        for line in lines:
+            if self.board[line[0]] == self.board[line[1]] == self.board[line[2]] != ' ':
+                return self.board[line[0]]
+        if ' ' not in self.board:
+            return 'tie'
+        return None
+
+    def bot_move(self):
+        available_positions = [i for i in range(1, 10) if self.board[i - 1] == ' ']
+        if len(available_positions) > 0:
+            position = random.choice(available_positions)
+            self.make_move(position)
+            return True
+        else:
+            return False
+
+def play_again():
+    while True:
+        time.sleep(1)
+        again = input("Do you want to play again? (y/n) ").lower()
+        if again == "y":
+            return True
+        elif again == "n":
+            return False
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
+
+# Play the game
+while True:
+    game = TicTacToe()
+    print("Welcome to Tic Tac Toe!")
+    game.display_board()
+
+    while True:
+        if game.current_player == 'X':
+            position = int(input("Enter your move (1-9): "))
+            if game.make_move(position):
+                game.display_board()
+                winner = game.check_winner()
+                if winner:
+                    if winner == 'tie':
+                        print("It's a tie!")
+                    else:
+                        print(f"{winner} wins!")
+                    break
+            else:
+                print("Invalid move. Please try again.")
+        else:
+            print("Bot's move...")
+            if not game.bot_move():
+                print("The board is full. It's a tie!")
+                break
+            game.display_board()
+            winner = game.check_winner()
+            if winner:
+                if winner == 'tie':
+                    print("It's a tie!")
+                else:
+                    print(f"{winner} wins!")
+                break
+
+    if not play_again():
+        print("See you next time!")
+        break
