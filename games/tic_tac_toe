@@ -1,3 +1,9 @@
+# Darius Corbin
+# 04/05/2023
+# Tic Tac Toe Game
+# Human v. Bot
+
+
 import random
 import time
 
