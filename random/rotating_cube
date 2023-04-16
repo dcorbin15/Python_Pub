@@ -1,6 +1,6 @@
-#Darius Corbin
-#02/15/2023
-#Rotating Cube
+# Darius Corbin
+# 02/15/2023
+# Rotating Cube
 
 # Install pygame as 'pip install pygame'
 # Install OpenGL as 'pip install PyOpenGL' or 'pip install PyOpenGL-accelerate'
